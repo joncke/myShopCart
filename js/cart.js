@@ -29,6 +29,16 @@ new Vue({
             //     this.productList = res.body.result.list;
             //     this.totalMoney = res.body.result.totalMoney;
             // });
+        },
+        changeMoney:function (product, way) {
+            if(way > 0){
+                product.productQuentity++;
+            }else{
+                product.productQuentity--;
+                if(product.productQuentity < 1){
+                    product.productQuentity =1;
+                }
+            }
         }
     }
 
