@@ -5,7 +5,8 @@ new Vue({
     el:'#app',
     data:{
         totalMoney:0,
-        productList:[]
+        productList:[],
+        checkAllFlag:false
     },
     filters:{
         formatMoney:function (value) {
@@ -36,9 +37,28 @@ new Vue({
             }else{
                 product.productQuentity--;
                 if(product.productQuentity < 1){
-                    product.productQuentity =1;
+                    product.productQuentity = 1;
                 }
             }
+        },
+        selectedProduct:function (item) {
+            if(typeof item.checked == "undefined"){
+                Vue.set(item,'checked',true);
+                // this.$set(item,'checked',true);
+            }else{
+                item.checked = !item.checked;
+            }
+        },
+        checkAll:function (flag) {
+            this.checkAllFlag = flag;
+            var _this = this;
+            this.productList.forEach(function (item,index) {
+                if(typeof item.checked == 'undefined'){
+                    _this.$set(item,'checked',_this.checkAllFlag);
+                }else{
+                    item.checked = _this.checkAllFlag;
+                }
+            })
         }
     }
 
