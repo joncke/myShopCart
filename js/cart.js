@@ -6,7 +6,9 @@ new Vue({
     data:{
         totalMoney:0,
         productList:[],
-        checkAllFlag:false
+        checkAllFlag:false,
+        delFlag:false,
+        curProduct:''
     },
     filters:{
         formatMoney:function (value) {
@@ -61,13 +63,25 @@ new Vue({
                     item.checked = _this.checkAllFlag;
                 }
             })
+            this.calcTotalMoney();
         },
         calcTotalMoney:function () {
             var _this = this;
             this.totalMoney = 0;
             this.productList.forEach(function (item,index) {
-                _this.totalMoney += item.productQuentity*item.productPrice
+                if(item.checked){
+                    _this.totalMoney += item.productQuentity*item.productPrice;
+                }
             })
+        },
+        delComfirm:function(item){
+            this.delFlag = true;
+            curProduct = item;
+        },
+        delProduct:function () {
+            var index = this.productList.indexof(this.curProduct);
+            this.productList.splice(index,1);
+            this.delFlag = false;
         }
     }
 
